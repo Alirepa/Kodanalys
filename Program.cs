@@ -2,8 +2,7 @@
 {
     class Program
     {
-        static string[] users = new string[10];
-        static int userCount = 0;
+        static List<string> users = new List<string>();
 
         static void Main(string[] args)
         {
@@ -50,24 +49,16 @@
         {
             Console.Write("Ange namn: ");
             string userName = Console.ReadLine();
-            if (userCount < 10)
-            {
-                users[userCount] = userName;
-                userCount++;
-                Console.WriteLine("Användaren tillagd.");
-            }
-            else
-            {
-                Console.WriteLine("Listan är full!");
-            }
+            users.Add(userName);
+            Console.WriteLine("Användaren tillagd.");
         }
 
         static void ShowAllUsers()
         {
             Console.WriteLine("Användare:");
-            for (int i = 0; i < userCount; i++)
+            foreach (string user in users) 
             {
-                Console.WriteLine(users[i]);
+                Console.WriteLine(user);
             }
         }
 
@@ -75,24 +66,11 @@
         {
             Console.Write("Ange namn att ta bort: ");
             string userName = Console.ReadLine();
-            int userIndex = -1;
-            for (int i = 0; i < userCount; i++)
-            {
-                if (users[i] == userName)
-                {
-                    userIndex = i;
-                    break;
-                }
-            }
-
-            if (userIndex != -1)
-            {
-                for (int i = userIndex; i < userCount - 1; i++)
-                {
-                    users[i] = users[i + 1];
-                }
-                userCount--;
-                Console.WriteLine("Användaren togs bort");
+            
+            if (users.Contains(userName)) 
+            { 
+                users.Remove(userName);
+                Console.WriteLine("Användaren borttagen.");
             }
             else
             {
@@ -104,18 +82,10 @@
         {
             Console.Write("Ange namn att söka: ");
             string userName = Console.ReadLine();
-            bool userFound = false;
-            for (int i = 0; i < userCount; i++)
+            
+            if (users.Contains(userName)) 
             {
-                if (users[i] == userName)
-                {
-                    userFound = true;
-                    break;
-                }
-            }
-            if (userFound)
-            {
-                Console.WriteLine("Användaren finns i listan.");
+            Console.WriteLine("Användaren hittades.");
             }
             else
             {
